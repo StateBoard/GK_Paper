@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_GK_Quetion_BankModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tbl_Chapter_Name">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chapter_Name" Type="nvarchar(max)" />
+    <Property Name="Active" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_Final_Que">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Index_No" Type="nvarchar(max)" />
+    <Property Name="Date_Time" Type="datetime" />
+    <Property Name="IP_Address" Type="nvarchar(max)" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Question_Id" Type="nvarchar" MaxLength="50" />
+    <Property Name="Paper_ID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Question" Type="nvarchar(max)" />
+    <Property Name="Option_A" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_B" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_C" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_D" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_3" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option_4" Type="nvarchar" MaxLength="50" />
+    <Property Name="Correct_Option" Type="nvarchar" MaxLength="50" />
+    <Property Name="Verify" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_gk_question_list">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sr_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="check_list" Type="nvarchar" MaxLength="50" />
+    <Property Name="questions_list" Type="nvarchar" MaxLength="50" />
+    <Property Name="options" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_gklogin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email_ID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Inedx_no" Type="nvarchar" MaxLength="50" />
+    <Property Name="date" Type="datetime" />
+    <Property Name="IP_Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="adhar_no" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Question_Add">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chapter_Name" Type="nvarchar(max)" />
+    <Property Name="Question_Type" Type="nvarchar(max)" />
+    <Property Name="Question_Name" Type="nvarchar(max)" />
+    <Property Name="OptionA" Type="nvarchar" MaxLength="50" />
+    <Property Name="OptionB" Type="nvarchar" MaxLength="50" />
+    <Property Name="OptionC" Type="nvarchar" MaxLength="50" />
+    <Property Name="OptionD" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans3" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans4" Type="nvarchar" MaxLength="50" />
+    <Property Name="Correct_Option" Type="nvarchar" MaxLength="50" />
+    <Property Name="Verify" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Question_Paper">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chapter_Name" Type="nvarchar(max)" />
+    <Property Name="Question_Type" Type="nvarchar(max)" />
+    <Property Name="Question_Name" Type="nvarchar(max)" />
+    <Property Name="OptionA" Type="nvarchar" MaxLength="50" />
+    <Property Name="OptionB" Type="nvarchar" MaxLength="50" />
+    <Property Name="OptionC" Type="nvarchar" MaxLength="50" />
+    <Property Name="OptionD" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="Option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans1" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans3" Type="nvarchar" MaxLength="50" />
+    <Property Name="Ans4" Type="nvarchar" MaxLength="50" />
+    <Property Name="Correct_Option" Type="nvarchar" MaxLength="50" />
+    <Property Name="Verify" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="db_GK_Quetion_BankModelStoreContainer">
+    <EntitySet Name="Tbl_Chapter_Name" EntityType="Self.Tbl_Chapter_Name" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Final_Que" EntityType="Self.Tbl_Final_Que" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_gk_question_list" EntityType="Self.Tbl_gk_question_list" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_gklogin" EntityType="Self.Tbl_gklogin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Question_Add" EntityType="Self.tbl_Question_Add" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Question_Paper" EntityType="Self.tbl_Question_Paper" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

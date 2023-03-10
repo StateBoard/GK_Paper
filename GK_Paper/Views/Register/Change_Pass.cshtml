@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2 align="center" style=font-family:'Times New Roman', Times, serif">Change Password</h2>
+<div class="row" style="border:inset 2px  #3eadcf"></div>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="rounded">
+            <br />
+            @*<h1 align="center" style="color:black; font-size: x-large;"> Change Password</h1>*@
+            <div >
+                <div class="row">
+                    <center>
+                        <div class="col-md-4 form-group">
+                            <label style="color:black">Index No :</label>
+                            <br />
+                            @*<input type="text" class="form-control" name="Inedx_no" required />*@
+                            @Html.TextBox("Inedx_no", "", new { placeholder = "Inedx_no", @type = "Inedx_no", @required = "required" })
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <br />
+                            <label style="color:black">New Password :</label><br>
+                            @*<input type="text" class="form-control" name="Password" required />*@
+                            @Html.TextBox("Password", "", new { placeholder = "Password", @type = "Password", @required = "required" })
+
+                        </div>
+                    </center>
+                </div>
+                <br />
+                <center>
+                    <input type="submit" class="btn btn-success" id="btn_submit" value="Submit" />
+                </center>
+
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $("#btnClg").click(function () {
+
+
+             $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Change_Pass")',
+                 dataType: 'json',
+                 contentType: "application/json; charset=utf-8",
+                 data: {
+                     login_id: JSON.stringify({ name: $("#Inedx_no").val() }),
+                     password: JSON.stringify({ name: $("#Password").val() }),
+                },
+                beforeSend: function () {
+                    $(".rounded").css("filter", "brightness(75%)");
+                    Showloader();
+                },
+                complete: function () {
+                    Hideloader();
+                    $(".rounded").css("filter", "brightness(100%)");
+                },
+                success: function (Data) {
+                    if (Data.Result) {
+                        Success_Alert(Data.Message);
+                       // window.open("../College/Receipt", '_blank')
+                    }
+                    else {
+                        Error_Alert(Data.Message);
+                    }
+                },
+                error: function (ex) {
+
+                }
+            });
+   });
+</script>

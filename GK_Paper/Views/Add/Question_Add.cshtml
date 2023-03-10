@@ -1,0 +1,335 @@
+﻿@model GK_Paper.Models.tbl_Question_Add
+@{
+    ViewBag.Title = "Question_Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<h2 align="center" style="font-family:'Times New Roman', Times, serif">Add Question</h2>
+<div class="row" style="border:inset 2px  #3eadcf"></div>
+<br />
+
+<form id="Que_Add">
+    <center>
+        <div class="container" style="font-family:'Times New Roman',Times,serif">
+            <div class="form-group">
+
+                <div class="row" style="font-size:medium">
+                    <div class="form-group col-md-6" style="padding-left:350px">
+                        @if (ViewBag.ChapterList != null)
+                        {
+                            <label>Topic Name:</label>
+                            @Html.DropDownListFor(m => m.Chapter_Name, ViewBag.ChapterList as SelectList, new { @class = "form-control", style = "width:200px" })
+
+                        }
+                    </div>
+                    <div class="col-md-6" style="padding-right:250px">
+                        <label>Question Type:</label>
+                        <select name="Question_Type" id="Question_Type" class="form-control" style="width:200px">
+                            <option value="0">--Select--</option>
+                            <option value="1-97">Q1 To Q97</option>
+                            <option value="98-99">Q98 To Q99</option>
+                            <option value="100">Q100</option>
+
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-5" style="padding-left:400px">
+                        <label>Enter Question:</label><br>
+                        @Html.TextBox("Question_Name", " ", new { style = "width:600px" })
+                        @Html.ValidationMessage("Question_Name", "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6" id="sa" style="padding-left:300px">
+                        <label>Option:A</label>
+                        @Html.TextBox("OptionA", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                    <div class="col-md-6" id="sb" style="padding-right:300px">
+                        <label>Option:1</label>
+                        @Html.TextBox("Option1", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6" id="sc" style="padding-left:300px">
+                        <label>Option:B</label>
+                        @Html.TextBox("OptionB", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                    <div class="col-md-6" id="sd" style="padding-right:300px">
+                        <label>Option:2</label>
+                        @Html.TextBox("Option2", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6" id="se" style="padding-left:300px">
+                        <label>Option:C</label>
+                        @Html.TextBox("OptionC", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                    <div class="col-md-6" id="sf" style="padding-right:300px">
+                        <label>Option:3</label>
+                        @Html.TextBox("Option3", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6" id="sg" style="padding-left:300px">
+                        <label>Option:D</label>
+                        @Html.TextBox("OptionD", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                    <div class="col-md-6" id="sh" style="padding-right:300px">
+                        <label>Option:4</label>
+                        @Html.TextBox("Option4", "", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row" style="border:inset 2px  #3eadcf"></div>
+
+                <br />
+
+                @*<center>*@
+                <div class="col-md-6" id="si" style="padding-right:580px">
+                    <label>Answer:</label>
+
+                </div>
+                <br />
+
+                <div class="row" id="sj">
+                    <div class="col-md-6" style="padding-left:300px">
+                        <label>(1)</label>
+                        @Html.TextBox("Ans1", " ", new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                    <div class="col-md-6" style="padding-right:300px">
+                        <label>(2)</label>
+                        @Html.TextBox("Ans2", " ", new { htmlAttribute = new { @class = "form-control" } })
+
+                    </div>
+
+                </div>
+                <br />
+
+                <br />
+                <div class="row" id="sk">
+                    <div class="col-md-6" style="padding-left:300px">
+                        <label>(3)</label>
+                        @Html.TextBox("Ans3", " ", new { htmlAttribute = new { @class = "form-control" } })
+
+                    </div>
+                    <div class="col-md-6" style="padding-right:300px">
+                        <label>(4)</label>
+                        @Html.TextBox("Ans4", " ", new { htmlAttribute = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <center style="padding-right:300px">
+                        <div class="col-md-6" style="padding-left:300px">
+                            <label>Correct Option:</label>
+                            <select class="form-control" name="Correct_Option" id="Correct_Option" style="width:200px">
+                                <option value="0">---Select Option---</option>
+                                @for (int i = 1; i < 5; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+
+                        </div>
+                    </center>
+
+                </div>
+
+            
+                <br />
+                <center>
+
+                    <input type="button" class="btn btn-success" id="btn_submit" value="Submit" />
+
+
+                </center>
+
+            </div>
+
+        </div>
+        <br />
+        <div class="row" style="border:inset 2px  #3eadcf"></div>
+    </center>
+</form>
+
+
+
+<div class="table-responsive">
+    <table id="rightContainer_ContentTable1_tblPreferencedOptionsList" class="AppFormTable">
+        <tbody>
+            <tr>
+                <th align="left"><font size="2"></font></th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="DataGrid" cellspacing="0" cellpadding="5" ruls="all" id="tbl2" name="tbl3" style="border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:1%;">ID</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Topic Name</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Question Type</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Question Name </th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionA</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionB</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionC</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionD</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option1</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option2</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option3</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option4</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans1</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans2</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans3</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans4</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Correct Option</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#Question_Type").change(function () {
+            var QuestionType = $("#Question_Type").val();
+            if (QuestionType == "1-97") {
+                /*$("#sc").show();*/
+                $("#sb").hide();
+                $("#sd").hide();
+                $("#sf").hide();
+                $("#sh").hide();
+                $("#si").hide();
+                $("#sj").hide();
+                $("#sk").hide();
+
+            }
+            if (QuestionType == "98-99") {
+                $("#sb").show();
+                $("#sd").show();
+                $("#sf").show();
+                $("#sh").show();
+                $("#si").show();
+                $("#sj").show();
+                $("#sk").show();
+            }
+        });
+
+        $("#tbl2").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "filter": false,
+            "orderMulti": false,
+            "searchable": true,
+            "bSearchable": true,
+
+            "ajax": {
+                "url": "Get_Que",
+                "type": "POST",
+                "dataType": "json"
+            },
+            "columns": [
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) {
+                        debugger
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { "data": 'Chapter_Name', "name": 'Chapter_Name', "autoWidth": true },
+                { "data": 'Question_Type', "name": 'Question_Type', "autoWidth": true },
+                { "data": 'Question_Name', "name": 'Question_Name', "autoWidth": true },
+                { "data": 'OptionA', "name": 'OptionA', "autoWidth": true },
+                { "data": 'OptionB', "name": 'OptionB', "autoWidth": true },
+                { "data": 'OptionC', "name": 'OptionC', "autoWidth": true },
+                { "data": 'OptionD', "name": 'OptionD', "autoWidth": true },
+                { "data": 'Option1', "name": 'Option1', "autoWidth": true },
+                { "data": 'Option2', "name": 'Option2', "autoWidth": true },
+                { "data": 'Option3', "name": 'Option3', "autoWidth": true },
+                { "data": 'Option4', "name": 'Option4', "autoWidth": true },
+                { "data": 'Ans1', "name": 'Ans1', "autoWidth": true },
+                { "data": 'Ans2', "name": 'Ans2', "autoWidth": true },
+                { "data": 'Ans3', "name": 'Ans3', "autoWidth": true },
+                { "data": 'Ans4', "name": 'Ans4', "autoWidth": true },
+                { "data": 'Correct_Option', "name": 'Correct_Option', "autoWidth": true },
+            ]
+        });
+
+        $("#btn_submit").click(function (e) {
+            debugger
+            e.preventDefault();
+            var formData = new FormData($(Que_Add)[0])
+            var fileVal = document.getElementById("fileInput");
+            console.log(formData);
+            $.ajax({
+                url: "Question_Add",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    Showloader();
+                },
+                complete: function () {
+                    Hideloader();
+                },
+                success: function (Data) {
+                    if (Data.Result) {
+                        Success_Alert(Data.Response);
+                        $('#Que_Add').find("#id").val(0);
+                        $(Que_Add)[0].reset();
+                        window.location.reload();
+                    }
+                    else {
+                        Error_Alert(Data.Response);
+
+
+                    }
+
+
+
+                }
+
+
+            });
+        });
+
+    });
+
+
+    function display_Table() {
+        debugger;
+
+
+    }
+</script>
+

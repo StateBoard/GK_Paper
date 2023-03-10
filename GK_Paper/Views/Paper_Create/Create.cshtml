@@ -1,0 +1,264 @@
+﻿@model GK_Paper.Models.tbl_Question_Paper
+@{
+    ViewBag.Title = "Create";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .AppFormTable th {
+        background-color: steelblue;
+        text-align: center;
+        color: white;
+    }
+</style>
+
+
+
+<form id="create" @*method="post" action="../Paper_Create/Data_re"*@>
+    <div class="container">
+        <div class="form-group">
+            <div class="row">
+                <h4 style="color:green">@TempData["Succ_Alert"]</h4>
+                <div class="col-md-3" style="padding-left:200px">
+                    @if (ViewBag.ChapterList != null)
+                    {<label>Topic Name:</label>
+                        @Html.DropDownListFor(m => m.Chapter_Name, ViewBag.ChapterList as SelectList, new { @class = "form-control", style = "width:200px" })
+                    }
+                </div>
+                <div class="col-md-3" style="padding-left:100px">
+                    <label>Question Types:</label>
+
+                    <select name="Type" id="Question_Type" class="form-control" style="width:200px">
+                        <option value="0">--Select Type--</option>
+                        <option value="1-97">Q1 To Q97</option>
+                        <option value="98-99">Q98 To Q99</option>
+                        <option value="100">Q100</option>
+
+                    </select>
+                </div>
+
+                <div class="col-md-2" style="padding-left:1px">
+                    <label></label><br>
+                    <input type="button" class="btn btn-success" id="btn_search" value="Search" />
+                </div>
+                <div class="col-md-1
+
+                     " style="padding-right:30px">
+                    <label></label><br />
+                    <input type="submit" class="btn btn-success" id="btn_submit" value="Submit" />
+                </div>
+
+                <div class="col-md-3">
+                    <table border="1" style="width:120%">
+                        <tbody>
+                            <tr>
+                                <td style="padding:1px;">
+                                    <span>Question Name</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span>Q1 To Q97</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span>Q98 To Q99</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span>Q100</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:1px;">
+                                    <span>Actual Que</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span style="color:red">97</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span style="color:red">2</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span style="color:red">1</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:1px;">
+                                    <span>Selected Que</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span>@ViewData["1-97"]</span>
+                                </td>
+                                <td>
+                                    <span>@ViewData["98-99"]</span>
+                                </td>
+                                <td style="padding:1px;">
+                                    <span>@ViewData["100"]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:1px;">
+                                    <span>Total Selected</span>
+                                </td>
+                                <td> @ViewData["Total"]</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <br />
+                </div>
+                <br />                          
+                <div class="row">
+                    <div class="col-md-6" style="padding-left:250px">
+                        <label>Enter Question Paper Name:</label>
+                        @Html.TextBox("Paper_ID", " ", new { style = "width:100px" })
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" id="btn_add" class="btn btn-success" value="Add" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <div class="col-sm-12">
+        <table id="table_Question" class="AppFormTable">
+            <thead>
+                <tr><th>Sr.No.</th><th>Question Name</th><th>Option A</th><th>Option B</th><th>Option C</th><th>Option D</th><th>Option 1</th><th>Option 2</th><th>Option 3</th><th>Option 4</th><th>Currect Option</th><th>Check By</th><th>Select Que</th></tr>
+            </thead>
+            <tbody id="qbody"></tbody>
+        </table>
+
+    </div>
+    <br />
+    <br />
+
+
+</form>
+<script>
+
+    $(document).ready(function () {
+
+
+        $("#btn_search").click(function (e) {
+
+            e.preventDefault();
+            var formData = new FormData($(create)[0])
+            var fileVal = document.getElementById("fileInput");
+            console.log(formData);
+            $.ajax({
+                url: "../Paper_Create/Get_Dat",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    /*Showloader();*/
+                },
+                complete: function () {
+                    /* Hideloader();*/
+                },
+                success: function (Data) {
+                    var temp = "";
+                    $("#qbody").empty();
+                    if (Data.Result) {
+                       
+                        $.each(Data.Response, function (i, data) {
+                            temp += `<tr>
+                                     <td>` + (i + 1) + `</td>
+                                     <td>` + data.Question_Name + `</td>
+                                     <td>` + data.OptionA + `</td>
+                                     <td>` + data.OptionB + `</td>
+                                     <td>` + data.OptionC + `</td>
+                                     <td>` + data.OptionD + `</td>
+                                     <td>` + data.Option1 + `</td>
+                                     <td>` + data.Option2 + `</td>
+                                     <td>` + data.Option3 + `</td>
+                                     <td>` + data.Option4 + `</td>
+                                     <td>` + data.Correct_Option + `</td>
+                                     <td>` + data.Verify + `</td>
+                                     <td>`+ `<input type="checkbox" id="Chk" name="Chk" class="btn btn-primary" value="` + data.id + `" />` + `</td>
+                                     </tr>`;
+
+                        });
+
+                        $("#table_Question").append(temp);
+
+                    }
+                    else {
+                        Error_Alert(Data.Response);
+                    }
+
+
+
+                }
+
+
+            });
+        });
+    });
+
+  
+    $('#btn_submit').click(function () {
+
+        debugger;
+        var formData = new FormData($(create)[0]);
+            $.ajax({
+                type: 'POST',
+                url: '../Paper_Create/Data_re',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                  
+                    if (data.Result) {
+                        debugger;
+                        alert(data.Response);
+                        $('#Add_Que').find("#id").val(0);
+                        window.location.reload();
+
+                        row.remove();
+
+                    }
+                    else {
+                        alert(data.Response);
+                    }
+                },
+            });
+       
+    });
+    $('#btn_add').click(function () {
+
+        debugger;
+        var formData = new FormData($(create)[0]);
+        $.ajax({
+            type: 'POST',
+            url: '../Paper_Create/Data_re',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+
+                if (data.Result) {
+                    debugger;
+                    alert(data.Response);
+                    $('#Add_Que').find("#id").val(0);
+                    window.location.reload();
+
+                    row.remove();
+
+                }
+                else {
+                    alert(data.Response);
+                }
+            },
+        });
+
+    });
+
+</script>

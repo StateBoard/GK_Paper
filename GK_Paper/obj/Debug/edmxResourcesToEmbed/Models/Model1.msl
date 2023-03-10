@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_GK_Quetion_BankModelStoreContainer" CdmEntityContainer="db_GK_Quetion_BankEntities1">
+    <EntitySetMapping Name="Tbl_Chapter_Name">
+      <EntityTypeMapping TypeName="db_GK_Quetion_BankModel.Tbl_Chapter_Name">
+        <MappingFragment StoreEntitySet="Tbl_Chapter_Name">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Chapter_Name" ColumnName="Chapter_Name" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Question_Add">
+      <EntityTypeMapping TypeName="db_GK_Quetion_BankModel.tbl_Question_Add">
+        <MappingFragment StoreEntitySet="tbl_Question_Add">
+          <ScalarProperty Name="Verify" ColumnName="Verify" />
+          <ScalarProperty Name="Correct_Option" ColumnName="Correct_Option" />
+          <ScalarProperty Name="Ans4" ColumnName="Ans4" />
+          <ScalarProperty Name="Ans3" ColumnName="Ans3" />
+          <ScalarProperty Name="Ans2" ColumnName="Ans2" />
+          <ScalarProperty Name="Ans1" ColumnName="Ans1" />
+          <ScalarProperty Name="Option4" ColumnName="Option4" />
+          <ScalarProperty Name="Option3" ColumnName="Option3" />
+          <ScalarProperty Name="Option2" ColumnName="Option2" />
+          <ScalarProperty Name="Option1" ColumnName="Option1" />
+          <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+          <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+          <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+          <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+          <ScalarProperty Name="Question_Name" ColumnName="Question_Name" />
+          <ScalarProperty Name="Question_Type" ColumnName="Question_Type" />
+          <ScalarProperty Name="Chapter_Name" ColumnName="Chapter_Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_gklogin">
+      <EntityTypeMapping TypeName="db_GK_Quetion_BankModel.Tbl_gklogin">
+        <MappingFragment StoreEntitySet="Tbl_gklogin">
+          <ScalarProperty Name="adhar_no" ColumnName="adhar_no" />
+          <ScalarProperty Name="IP_Adress" ColumnName="IP_Adress" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="Inedx_no" ColumnName="Inedx_no" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Mobile_no" ColumnName="Mobile_no" />
+          <ScalarProperty Name="Email_ID" ColumnName="Email_ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_gk_question_list">
+      <EntityTypeMapping TypeName="db_GK_Quetion_BankModel.Tbl_gk_question_list">
+        <MappingFragment StoreEntitySet="Tbl_gk_question_list">
+          <ScalarProperty Name="options" ColumnName="options" />
+          <ScalarProperty Name="questions_list" ColumnName="questions_list" />
+          <ScalarProperty Name="check_list" ColumnName="check_list" />
+          <ScalarProperty Name="Sr_no" ColumnName="Sr_no" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Question_Paper">
+      <EntityTypeMapping TypeName="db_GK_Quetion_BankModel.tbl_Question_Paper">
+        <MappingFragment StoreEntitySet="tbl_Question_Paper">
+          <ScalarProperty Name="Verify" ColumnName="Verify" />
+          <ScalarProperty Name="Correct_Option" ColumnName="Correct_Option" />
+          <ScalarProperty Name="Ans4" ColumnName="Ans4" />
+          <ScalarProperty Name="Ans3" ColumnName="Ans3" />
+          <ScalarProperty Name="Ans2" ColumnName="Ans2" />
+          <ScalarProperty Name="Ans1" ColumnName="Ans1" />
+          <ScalarProperty Name="Option4" ColumnName="Option4" />
+          <ScalarProperty Name="Option3" ColumnName="Option3" />
+          <ScalarProperty Name="Option2" ColumnName="Option2" />
+          <ScalarProperty Name="Option1" ColumnName="Option1" />
+          <ScalarProperty Name="OptionD" ColumnName="OptionD" />
+          <ScalarProperty Name="OptionC" ColumnName="OptionC" />
+          <ScalarProperty Name="OptionB" ColumnName="OptionB" />
+          <ScalarProperty Name="OptionA" ColumnName="OptionA" />
+          <ScalarProperty Name="Question_Name" ColumnName="Question_Name" />
+          <ScalarProperty Name="Question_Type" ColumnName="Question_Type" />
+          <ScalarProperty Name="Chapter_Name" ColumnName="Chapter_Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Final_Que">
+      <EntityTypeMapping TypeName="db_GK_Quetion_BankModel.Tbl_Final_Que">
+        <MappingFragment StoreEntitySet="Tbl_Final_Que">
+          <ScalarProperty Name="Verify" ColumnName="Verify" />
+          <ScalarProperty Name="Correct_Option" ColumnName="Correct_Option" />
+          <ScalarProperty Name="Option_4" ColumnName="Option_4" />
+          <ScalarProperty Name="Option_3" ColumnName="Option_3" />
+          <ScalarProperty Name="Option_2" ColumnName="Option_2" />
+          <ScalarProperty Name="Option_1" ColumnName="Option_1" />
+          <ScalarProperty Name="Option_D" ColumnName="Option_D" />
+          <ScalarProperty Name="Option_C" ColumnName="Option_C" />
+          <ScalarProperty Name="Option_B" ColumnName="Option_B" />
+          <ScalarProperty Name="Option_A" ColumnName="Option_A" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Paper_ID" ColumnName="Paper_ID" />
+          <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
+          <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+          <ScalarProperty Name="Index_No" ColumnName="Index_No" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

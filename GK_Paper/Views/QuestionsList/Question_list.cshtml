@@ -1,0 +1,210 @@
+﻿@model GK_Paper.Models.tbl_Question_Paper
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="container">
+    <br /><br />
+    <div class="row" style="margin-left:10px">
+        <div class="col-lg-1">
+            chapter Name
+        </div>
+        <div class="col-lg-4">
+            <select class="btn btn-default dropdown-toggle" id="topic" name="topic" style="width: 150px;">
+                <option value="0">-Select Topic-</option>
+
+                <option value="CHAPTER 1">CHAPTER 1</option>
+                <option value="CHAPTER 2">CHAPTER 2</option>
+                <option value="CHAPTER 3">CHAPTER 3</option>
+                <option value="CHAPTER 4">CHAPTER 4</option>
+                <option value="CHAPTER 5">CHAPTER 5</option>
+                <option value="CHAPTER 6">CHAPTER 6</option>
+
+            </select>
+        </div>
+        <div class="col-lg-1">
+            Quetion Type
+        </div>
+        <div class="col-lg-4">
+
+            @Html.DropDownListFor(model => model.Question_Type, new List<SelectListItem>
+              {
+                  new SelectListItem { Text = "Q1", Value = "Q1"},
+                  new SelectListItem { Text = "Q2", Value = "Q2"},
+                  new SelectListItem { Text = "Q3", Value = "Q3"},
+                  new SelectListItem { Text = "Q4", Value = "Q4"},
+                  new SelectListItem { Text = "Q5", Value = "Q5"},
+                  new SelectListItem { Text = "Q6", Value = "Q6"},
+                  new SelectListItem { Text = "Q7", Value = "Q7"},
+
+               }, "-Select Que-", new { @class = "btn btn-default dropdown-toggle", @style = "width:150px" })
+
+
+        </div>
+        @*<input type="submit" id="btnSubmit" value="Submit" class="btn btn-default" />*@
+        <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+    </div>
+
+    <br>
+    <br />
+    <div class="col-sm-12">
+        <table id="Questiondata" class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>SR NO</th>
+                    <th>Question </th>
+                    <th>Option A</th>
+                    <th>Option B</th>
+                    <th>Option C</th>
+                    <th>Option D</th>
+                    <th>Check By</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="Questiondetails">
+            </tbody>
+        </table>
+
+    </div>
+    <center>
+
+    </center>
+
+
+
+    <script>
+        $(document).ready(function () {
+            Question_list();
+
+        });
+        $("#Chapter_Name").change(function () {
+            $("#Question_Type").empty();
+            $.ajax({
+                type: 'POST',
+                url: 'getQuetionList',
+                dataType: 'json',
+                data: {
+                    stream: $("#stream").val(),
+                    Chapter_Name: $("#Chapter_Name").val()
+                },
+                success: function (center) {
+
+                    $.each(center, function (i, Question_Type) {
+                        $("#Question_Type").append('<option value="' + Question_Type.Value + '">' + Question_Type.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+            return false;
+        })
+        $("#questions_list").change(function () {
+            $("#Question_Type").empty();
+            $.ajax({
+                type: 'POST',
+                url: 'Question_list2',
+                dataType: 'json',
+                data: {
+                    stream: $("#stream").val(),
+                    Question_Name: $("#Question_Name").val()
+                },
+                success: function (center) {
+
+                    $.each(center, function (i, Question_Type) {
+                        $("#Question_Type").append('<option value="' + Question_Type.Value + '">' + Question_Type.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+            return false;
+        })
+
+        $('#Questiondata').on('change', 'input', function () {
+
+            /* var arrayOfValues = new Array();*/
+            var row = $(this).closest('tr');
+
+            var radio_check_cal = row.find("input[id=checkbox]:checked").val();
+            var Data = "";
+            if (radio_check_cal == "checked") {
+                var barcodName = $(this).closest('tr').find('#verify').append("<p>Verify");
+                alert("Verify")
+                Data = row.find("input[id=hd_id]").val();
+            }
+            debugger
+            $('#btnSubmit').click(function (e) {
+                e.preventDefault();
+                debugger
+                $.ajax({
+                    type: 'POST',
+                    url: 'Submit_Verified_Que',
+                    dataType: 'json',
+                    data: {
+
+                        Data: Data
+                    },
+                    success: function (data) {
+
+                        if (data.Result) {
+
+
+                        }
+                        return false;
+                    },
+                });
+            });
+
+        });
+
+
+        function Question_list() {
+            $('#Questiondetails tr').remove();
+
+            $.ajax({
+                type: 'GET',
+                url: 'Question_Data',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Result) {
+
+                        $.each(data.Response, function (i, item) {
+
+                            var rows = "<tr>" +
+                                "<td>" + (i + 1) + `<input type="hidden" id="hd_id" value=` + item.id + `> ` + "</td>" +
+                                "<td >" + item.Question_Name + "</td>" +
+                                "<td >" + item.OptionA + "</td>" +
+                                "<td >" + item.OptionB + "</td>" +
+                                "<td >" + item.OptionC + "</td>" +
+                                "<td >" + item.OptionD + "</td>" +
+
+                                "<td>" + `<input type = "checkbox" id="checkbox" class = "btn btn-primary" value="checked" />` + `<div id="verify"></div>` + "</td>" +
+                                +"<tr>"
+                            $('#Questiondetails').append(rows);
+                        });
+                    }
+                    return false;
+                },
+            });
+        }
+
+        $("#ques_no").change(function () {
+            if ($("#ques_no").val() == "Q6") {
+
+                $("#otherQue").hide();
+                $("#QueSix").show();
+            }
+            else {
+                $("#otherQue").show();
+                $("#QueSix").hide();
+            }
+        })
+
+
+    </script>

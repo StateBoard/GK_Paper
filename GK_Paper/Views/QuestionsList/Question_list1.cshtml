@@ -1,0 +1,224 @@
+﻿@model GK_Paper.Models.tbl_Question_Paper
+@{
+    ViewBag.Title = "Question_list1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<h2 align="center" style="font-family:'Times New Roman', Times, serif">Verify Question</h2>
+<div class="row" style="border:inset 2px  #3eadcf"></div>
+<br />
+
+<div class="container">
+    <center>
+        <div class="row">
+
+            <div class="col-md-3">
+                <label>Chapter Name:</label>
+                @Html.DropDownListFor(model => model.Chapter_Name, ViewBag.chapterList as SelectList, new { @class = "form-control", style = "width:200px" })
+            </div>
+
+            <div class="col-md-3">
+                <label>Select Question:</label>
+                @Html.DropDownListFor(model => model.Question_Type, new SelectList(string.Empty, "Value", "Text"), "-Select Question-", new { style = "width: 250px;", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Question_Type, "", new { @class = "text-danger" })
+                @*@Html.DropDownListFor(model => model.Question_Type, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Q1 ", Value = "1"},
+                    new SelectListItem { Text = "Q2 ", Value = "2"},
+                    new SelectListItem { Text = "Q3 ", Value = "3"},
+                    new SelectListItem { Text = "Q4 ", Value = "4"},
+                    new SelectListItem { Text = "Q5 ", Value = "5"},
+                    new SelectListItem { Text = "Q6 ", Value = "6"},
+
+                 }, "-Select Question Type  -", new { @class = "btn btn-default dropdown-toggle", @style = "width:210px" })*@
+
+            </div>
+
+            <div class="col-md-3" style="padding-left:1px">
+                <label></label><br>
+                <input type="button" class="btn btn-success" id="btnSubmit" name="submit" value="submit" />
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+
+
+
+        <div class="col-sm-12">
+            <table id="Questiondata" class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>SR NO</th>
+                        <th>Question </th>
+                        <th>Option A</th>
+                        <th>Option B</th>
+                        <th>Option C</th>
+                        <th>Option D</th>
+                        <th>Check By</th>
+
+                    </tr>
+                </thead>
+
+                <tbody id="Questiondetails">
+                </tbody>
+            </table>
+
+        </div>
+
+    </center>
+</div>
+
+<script>
+
+    $("#Question_Type").change(function () {
+        $("#Questiondetails tr").remove();
+        $.ajax({
+            type: 'post',
+            url: 'getChapterList',
+            datatype: 'json',
+            data: {
+                Question_Type: $("#Question_Type").val(),
+                Chapter_Name: $("#Chapter_Name").val()
+            },
+            success: function (Data) {
+                if (Data.Result) {
+                    $.each(Data.Response, function (i, item) {
+                        debugger
+                        var rows = "<tr>" +
+                            "<td>" + (i + 1) + `<input type="hidden" id="hd_id" value=` + item.id + `> ` + "</td>" +
+                            "<td >" + item.Question_Name + "</td>" +
+                            "<td >" + item.OptionA + "</td>" +
+                            "<td >" + item.OptionB + "</td>" +
+                            "<td >" + item.OptionC + "</td>" +
+                            "<td >" + item.OptionD + "</td>" +
+                            "<td>" + `<input type = "checkbox" id="checkbox" class = "btn btn-primary" value="checked" />` + `<div id="verify"></div>` + "</td>" +
+                            +"<tr>"
+                        $('#Questiondetails').append(rows);
+                    });
+                }
+            }
+
+        });
+
+    });
+
+    $("#Chapter_Name").change(function () {
+        $("#Questiondetails tr").remove();
+
+        $.ajax({
+            type: 'post',
+            url: 'getChapterList',
+            datatype: 'json',
+            data: {
+                Question_Type: $("#Question_Type").val(),
+                Chapter_Name: $("#Chapter_Name").val()
+            },
+            success: function (Data) {
+                if (Data.Result) {
+
+                    $.each(Data.Response, function (i, item) {
+
+
+                        var rows = "<tr>" +
+                            "<td>" + (i + 1) + `<input type="hidden" id="hd_id" value=` + item.id + `> ` + "</td>" +
+                            "<td >" + item.Question_Name + "</td>" +
+                            "<td >" + item.OptionA + "</td>" +
+                            "<td >" + item.OptionB + "</td>" +
+                            "<td >" + item.OptionC + "</td>" +
+                            "<td >" + item.OptionD + "</td>" +
+
+                            "<td>" + `<input type = "checkbox" id="checkbox" class = "btn btn-primary" value="checked" />` + `<div id="verify"></div>` + "</td>" +
+                            +"<tr>"
+                        $('#Questiondetails').append(rows);
+
+                    });
+
+
+                   /* appendQue();*/
+                }
+            }
+        });
+
+    });
+
+    $("#Chapter_Name").change(function () {
+
+        $("#Question_Type").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getque")',
+                dataType: 'json',
+                data: { id: $("#Chapter_Name").val() },
+                success: function (data) {
+
+                    $.each(data, function (i, data) {
+                        $("#Question_Type").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+        return false;
+
+        })
+
+
+    $('#Questiondata').on('change', 'input', function () {
+
+        /* var arrayOfValues = new Array();*/
+        var row = $(this).closest('tr');
+
+        var radio_check_cal = row.find("input[id=checkbox]:checked").val();
+        var Data = $(this).closest('tr').find('#hd_id').val();
+
+        if (radio_check_cal == "checked") {
+            var barcodName = $(this).closest('tr').find('#verify').append("<p>Verify");
+            alert("Verify")
+
+        }
+
+
+        $('#btnSubmit').click(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: 'Submit_Verified_Que',
+                dataType: 'json',
+                data: {
+
+                    Data: Data
+                },
+                success: function (data) {
+                    if (data.Result == true) {
+
+                        Success_Alert(data.Response)
+
+                        row.remove();
+                        // Send element to function for delete row
+                        //location.reload();
+                        //timeout: 100000
+                    } else {
+                        Error_Alert(Data.Response);
+                    }
+                    return false;
+
+                },
+            });
+        });
+
+    });
+
+
+
+</script>
+

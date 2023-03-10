@@ -1,0 +1,215 @@
+﻿@model GK_Paper.Models.Tbl_gklogin
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+@*@Html.Raw(TempData["inserted"])*@
+
+
+@if (TempData["Msg"] != null)
+{
+    <h4 style="color:red">@TempData["Msg"].ToString()</h4>
+}
+
+
+<style>
+    @@media (min-width: 768px) and (max-width: 1199px) {
+        .respons {
+        }
+
+        .respons1 {
+            padding-top: 50px
+        }
+
+        .container .row {
+            align-items: center;
+            padding-left: 300px;
+        }
+    }
+
+    @@media(min-width:992px) and (max-width: 1199px) {
+        .col-md-1 {
+            display: none;
+        }
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+    });
+</script>
+
+
+<center>
+    <div class="container embed-responsive-item" style="margin-left:-5px">
+        <div class="row" style="font-size: medium; font-weight: bold; text-align: center; line-height: 30px; padding-top: 10px;">
+            <h1> Registration Form</h1>
+        </div>
+
+        <br />
+        <form id="frm_submit">
+            <div class="form-horizontal">
+                <h4> </h4>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <span>1)    Name :</span><span style="color:Red">*</span>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @name = "Name ", @id = "Name", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                    </div>
+                    @*<div class="col-md-1"></div>*@
+                    <div class="col-lg-2">
+                        <span>2)   Email ID</span><span style="color:Red">*</span>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.EditorFor(model => model.Email_ID, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Email_ID, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <span>3)   Mobile No:</span><span style="color:Red">*</span>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.EditorFor(model => model.Mobile_no, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Mobile_no, "", new { @class = "text-danger" })
+
+                    </div>
+                    @*<div class="col-md-1"></div>*@
+                    <div class="col-lg-2">
+                        <span>4)   Password</span><span style="color:Red">*</span>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-2">
+                        <span>5)   Inedx No:</span><span style="color:Red">*</span>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.EditorFor(model => model.Inedx_no, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Inedx_no, "", new { @class = "text-danger" })
+
+                    </div>
+                    @*<div class="col-md-1"></div>*@
+                    <div class="col-lg-2">
+                        <span>6)   IP Adress</span><span style="color:Red">*</span>
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.EditorFor(model => model.IP_Adress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.IP_Adress, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+                <br />
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-lg-2">
+                    <span>6)   Date </span><span style="color:Red">*</span>
+                </div>
+                <div class="col-lg-3">
+                    <input type="date" id="date" name="date" style="width:250px;" />
+                    @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+            <br>
+
+            <br>
+            <center>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="button" id="btnSubmit" value="Submit" class="btn btn-success" />
+
+                    </div>
+                </div>
+
+            </center>
+        </form>
+    </div>
+</center>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('li').removeClass('active');
+        $('submit').addClass(' active');
+
+        $("#btnSubmit").click(function (e) {
+            var formData = new FormData($(frm_submit)[0]);
+            //var formData = $("#frm_submit").serialize();
+            $.ajax({
+                url: 'Registration',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $("#frm_submit :input").prop("disabled", true);
+                    $(".rounded").css("filter", "brightness(75%)");
+                    Showloader();
+                },
+                complete: function () {
+                    Hideloader();
+                    $("#frm_submit :input").prop("disabled", false);
+                    $(".rounded").css("filter", "brightness(100%)");
+                },
+                success: function (Data) {
+                    if (Data.Result == true) {
+                        debugger
+
+                        Success_Alert(Data.Response);
+                        $(frm_submit)[0].reset();
+
+                    }
+                    else {
+                        Error_Alert(Data.Response);
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    Error_Alert(Data.Response);
+                },
+            });
+
+        })
+    });
+</script>
+
+
+
+

@@ -1,0 +1,102 @@
+﻿@model GK_Paper.Models.tbl_Question_Paper
+@{
+    ViewBag.Title = "data_view";
+}
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<h2 align="center" style="font-family:'Times New Roman', Times, serif">Paper Verify</h2>
+<div class="row" style="border:inset 2px  #3eadcf"></div>
+<br />
+
+<div id="view">
+    <div class="container">
+
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table id="rightContainer_ContentTable1_tblPreferencedOptionsList" class="AppFormTable">
+        <tbody>
+            <tr>
+                <th align="left"><font size="2"></font></th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="DataGrid" cellspacing="0" cellpadding="5" ruls="all" id="tbl2" name="tbl3" style="border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:1%;">ID</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Topic Name</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Question Type</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Question Name </th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionA</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionB</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionC</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">OptionD</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option1</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option2</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option3</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Option4</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans1</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans2</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans3</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Ans4</th>
+                                <th class="Header" align="center" valign="middle" scope="col" style="font-weight:bold;width:3%;">Correct Option</th>
+                               
+                            </tr>
+                        </thead>
+                    </table>
+                    <br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#tbl2").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "filter": false,
+            "orderMulti": false,
+            "searchable": true,
+            "bSearchable": true,
+
+            "ajax": {
+                "url": "data_view",
+                "type": "POST",
+                "dataType": "json"
+            },
+            "columns": [
+                {
+                    "data": "id",
+                    render: function (data, type, row, meta) {
+
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                { "data": 'Chapter_Name', "name": 'Chapter_Name', "autoWidth": true },
+                { "data": 'Question_Type', "name": 'Question_Type', "autoWidth": true },
+                { "data": 'Question_Name', "name": 'Question_Name', "autoWidth": true },
+                { "data": 'OptionA', "name": 'OptionA', "autoWidth": true },
+                { "data": 'OptionB', "name": 'OptionB', "autoWidth": true },
+                { "data": 'OptionC', "name": 'OptionC', "autoWidth": true },
+                { "data": 'OptionD', "name": 'OptionD', "autoWidth": true },
+                { "data": 'OptionA', "name": 'Option1', "autoWidth": true },
+                { "data": 'OptionB', "name": 'Option2', "autoWidth": true },
+                { "data": 'OptionC', "name": 'Option3', "autoWidth": true },
+                { "data": 'OptionD', "name": 'Option4', "autoWidth": true },
+                { "data": 'Ans1', "name": 'Ans1', "autoWidth": true },
+                { "data": 'Ans2', "name": 'Ans2', "autoWidth": true },
+                { "data": 'Ans3', "name": 'Ans3', "autoWidth": true },
+                { "data": 'Ans4', "name": 'Ans4', "autoWidth": true },
+                { "data": 'Correct_Option', "name": 'Correct_Option', "autoWidth": true },
+               
+               
+            ]
+        });
+    });
+
+</script>

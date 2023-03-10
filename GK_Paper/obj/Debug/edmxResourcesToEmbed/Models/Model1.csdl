@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_GK_Quetion_BankModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tbl_Chapter_Name">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Chapter_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="db_GK_Quetion_BankEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tbl_Chapter_Name" EntityType="Self.Tbl_Chapter_Name" />
+    <EntitySet Name="tbl_Question_Add" EntityType="db_GK_Quetion_BankModel.tbl_Question_Add" />
+    <EntitySet Name="Tbl_gklogin" EntityType="db_GK_Quetion_BankModel.Tbl_gklogin" />
+    <EntitySet Name="Tbl_gk_question_list" EntityType="db_GK_Quetion_BankModel.Tbl_gk_question_list" />
+    <EntitySet Name="tbl_Question_Paper" EntityType="db_GK_Quetion_BankModel.tbl_Question_Paper" />
+    <EntitySet Name="Tbl_Final_Que" EntityType="db_GK_Quetion_BankModel.Tbl_Final_Que" />
+  </EntityContainer>
+  <EntityType Name="tbl_Question_Add">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Chapter_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OptionA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OptionB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OptionC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OptionD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Correct_Option" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Verify" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Tbl_gklogin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Inedx_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="date" Type="DateTime" Precision="3" />
+    <Property Name="IP_Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="adhar_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Tbl_gk_question_list">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sr_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="check_list" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="questions_list" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="options" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_Question_Paper">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Chapter_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OptionA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OptionB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OptionC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OptionD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ans4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Correct_Option" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Verify" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Tbl_Final_Que">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Index_No" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Time" Type="DateTime" Precision="3" />
+    <Property Name="IP_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Question_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Paper_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Option_A" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_B" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_C" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_D" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Option_4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Correct_Option" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Verify" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

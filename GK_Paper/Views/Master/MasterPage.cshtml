@@ -1,0 +1,167 @@
+﻿@model GK_Paper.Models.Tbl_Chapter_Name
+@{
+    ViewBag.Title = "MasterPage";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<form id="submit_form">
+
+
+    <div class="container embed-responsive-item" style="margin-left:-10px">
+        <div class="row" style="font-size: medium; font-weight: bold; text-align: center; line-height: 30px; padding-top: 10px;">
+            Topic Details
+        </div>
+        <br />
+
+        <div class="row" style="margin-right:600px">
+            <div style="height:25px;"></div>
+            <div class="col-lg-6">
+
+                <span style="font-weight: bold;"> Enter Chapter Name </span>
+
+            </div>
+
+            <br>
+            @Html.HiddenFor(model => model.Id)
+            <div class="col-lg-6">
+                @Html.TextBoxFor(model => model.Chapter_Name, new { @class = "form-control", Chapter_Name = "Chapter_Name ", @id = "Chapter_Name", @required = "required" })
+                @Html.ValidationMessageFor(model => model.Chapter_Name, "", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <center>
+        <input type="button" id="btn_submit" class="btn btn-block btn-primary btn-lg font-weight-bolder auth-form-btn" value="SUBMIT" style="background-color: #3eadcf;font-weight:normal; width:10%">
+    </center>
+</form>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2> </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="TopicTable" class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Chapter Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="Topicdetails">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        BindTopicTable();
+        $('#btn_submit').click(function () {
+
+            var formdata = $('#submit_form').serialize();
+
+            $.ajax({
+                type: 'post',
+                url: 'MasterPage',
+                data: formdata,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Result == true) {
+                        Success_Alert(data.Response)
+                    } else {
+                        Error_Alert(Data.Response);
+                    }
+                },
+            });
+
+        });
+
+    });
+
+
+    function BindTopicTable() {
+        $('#Topicdetails tr').remove();
+
+        $.ajax({
+            type: 'GET',
+            url: 'BindRecord',
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result) {
+                    $.each(data.Response, function (i, item) {
+                        var rows = "<tr>" +
+                            "<td>" + item.Id + "</td>" +
+                            "<td>" + item.Chapter_Name + "</td>" +
+                            "<td>" + `<input type = "button" id="Edit" class = "btn btn-primary" value="Edit" onclick="EditByID(` + item.Id + `)"/>` + "</td>" +
+                            "<td>" + `<input type = "button" id="Delete" class = "btn btn-danger" value="Delete" onclick="DeleteByID(` + item.Id + `)"/>` + "</td>" +
+                            "</tr>"
+
+                        $('#Topicdetails').append(rows);
+                    });
+                }
+            },
+        });
+    }
+
+    function EditByID(ID) {
+        $.ajax({
+            type: "GET",
+            url: '/Master/GetProdByID',
+            datatype: 'json',
+            data: {
+                ID: ID
+            },
+
+            success: function (data) {
+                if (data.Result) {
+                    debugger;
+                    $('#Id').val(ID);
+                    $('#Chapter_Name').val(data.Response.Chapter_Name);
+
+
+                }
+                else {
+                    BindTopicTable();
+                    alert(data.Response);
+                }
+            },
+
+        });
+    }
+
+
+
+
+    function DeleteByID(ID) {
+        $.ajax({
+            type: "POST",
+            url: '/Master/DeleteProdByID',
+            datatype: 'json',
+            data: {
+                ID: ID
+            },
+            success: function (data) {
+                if (data.Result) {
+                    BindTopicTable();
+                    alert(data.Response);
+                }
+                else {
+                    BindTopicTable();
+                    alert(data.Response);
+                }
+            },
+        });
+    }
+
+
+</script>
